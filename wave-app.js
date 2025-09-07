@@ -588,91 +588,62 @@ window.plotReflectionSpectra=function(){
     {
       x: f, 
       y: Si, 
-      mode: 'lines+markers', 
+      mode: 'lines', 
       name: 'Incident', 
-      line: {color: '#0ea5e9', width: 4, dash: 'dot'}, 
-      marker: {size: 6, color: '#0ea5e9', symbol: 'circle'},
-      hovertemplate: '<b>Incident</b><br>Frequency: %{x:.3f} Hz<br>Spectrum: %{y:.6f} m²·s<extra></extra>'
+      line: {color: '#0ea5e9', width: 3},
+      hovertemplate: 'Frequency: %{x:.2f} Hz<br>Spectral Density: %{y:.4f} m²·s<extra></extra>'
     },
     {
       x: f, 
       y: Sr, 
-      mode: 'lines+markers', 
+      mode: 'lines', 
       name: 'Reflected', 
-      line: {color: '#f59e0b', width: 4, dash: 'dashdot'}, 
-      marker: {size: 6, color: '#f59e0b', symbol: 'diamond'},
-      hovertemplate: '<b>Reflected</b><br>Frequency: %{x:.3f} Hz<br>Spectrum: %{y:.6f} m²·s<extra></extra>'
+      line: {color: '#dc2626', width: 3, dash: 'dash'},
+      hovertemplate: 'Frequency: %{x:.2f} Hz<br>Spectral Density: %{y:.4f} m²·s<extra></extra>'
     },
     {
       x: f, 
       y: Sf, 
-      mode: 'lines+markers', 
+      mode: 'lines', 
       name: 'Composite', 
-      line: {color: '#1e293b', width: 4}, 
-      marker: {size: 6, color: '#1e293b', symbol: 'square'},
-      hovertemplate: '<b>Composite</b><br>Frequency: %{x:.3f} Hz<br>Spectrum: %{y:.6f} m²·s<extra></extra>'
+      line: {color: '#059669', width: 3},
+      hovertemplate: 'Frequency: %{x:.2f} Hz<br>Spectral Density: %{y:.4f} m²·s<extra></extra>'
     }
   ], {
     title: {
-      text: '🌊 Wave Spectra Analysis: Incident, Reflected & Composite',
-      font: {size: 26, family: 'Inter, Arial', color: '#0c4a6e'},
-      x: 0.5,
-      y: 0.95
+      text: 'Wave Spectra Analysis',
+      font: {size: 20, family: 'Inter, Arial', color: '#0c4a6e'},
+      x: 0.5
     },
     xaxis: {
-      title: {
-        text: 'Frequency f [Hz]',
-        font: {size: 18, color: '#0369a1'}
-      },
-      gridcolor: 'rgba(14, 165, 233, 0.2)',
-      zerolinecolor: 'rgba(14, 165, 233, 0.4)',
-      tickfont: {size: 14, color: '#0c4a6e'},
-      showline: true,
-      linewidth: 2,
-      linecolor: 'rgba(14, 165, 233, 0.3)'
+      title: 'Frequency [Hz]',
+      gridcolor: 'rgba(14, 165, 233, 0.1)',
+      tickfont: {size: 12}
     },
     yaxis: {
-      title: {
-        text: 'Spectral Density S<sub>f</sub> [m²·s]',
-        font: {size: 18, color: '#0369a1'}
-      },
-      gridcolor: 'rgba(14, 165, 233, 0.2)',
-      zerolinecolor: 'rgba(14, 165, 233, 0.4)',
-      tickfont: {size: 14, color: '#0c4a6e'},
-      showline: true,
-      linewidth: 2,
-      linecolor: 'rgba(14, 165, 233, 0.3)'
+      title: 'Spectral Density [m²·s]',
+      gridcolor: 'rgba(14, 165, 233, 0.1)',
+      tickfont: {size: 12}
     },
     legend: {
       orientation: 'h',
       x: 0.5,
       xanchor: 'center',
-      y: -0.2,
-      bgcolor: 'rgba(255, 255, 255, 0.9)',
-      bordercolor: 'rgba(14, 165, 233, 0.3)',
-      borderwidth: 2,
-      font: {size: 16, color: '#0c4a6e'}
+      y: -0.15,
+      font: {size: 12}
     },
-    margin: {t: 100, l: 80, r: 50, b: 120},
+    margin: {t: 60, l: 60, r: 40, b: 80},
     autosize: true,
-    plot_bgcolor: 'rgba(240, 249, 255, 0.5)',
-    paper_bgcolor: 'rgba(255, 255, 255, 0.9)',
-    font: {family: 'Inter, Arial', color: '#0c4a6e'},
-    hoverlabel: {
-      bgcolor: 'rgba(14, 165, 233, 0.9)',
-      bordercolor: 'white',
-      font: {color: 'white', size: 14}
-    }
+    plot_bgcolor: 'white',
+    paper_bgcolor: 'white',
+    font: {family: 'Inter, Arial'}
   }, {
     responsive: true, 
     displayModeBar: true,
-    modeBarButtonsToAdd: ['drawline', 'drawopenpath', 'drawclosedpath', 'drawcircle', 'drawrect', 'eraseshape'],
     displaylogo: false,
     toImageButtonOptions: {
       format: 'png',
       filename: 'wave_spectra_analysis',
-      height: 600,
-      width: 1000,
       scale: 2
     }
   });
@@ -862,88 +833,51 @@ window.plotGaugeData=function(){
   const pos=byId('gauge-positions').value.split(',').map(x=>parseFloat(x.trim()));
   const colors=['#0ea5e9','#dc2626','#059669'];
   const symbols=['circle','diamond','square'];
-  const labels=[`🌊 Gauge 1 (x=${pos[0]}m)`,`🌊 Gauge 2 (x=${pos[1]}m)`,`🌊 Gauge 3 (x=${pos[2]}m)`];
-  const traces=[0,1,2].map(i=>({
-        x: time,
-        y: currentReflectionData.map(r=>r[i]),
-        mode: 'lines',
-        name: labels[i],
-        line: {color: colors[i], width: 4, shape: 'spline'},
-        hovertemplate: `<b>${labels[i]}</b><br>Time: %{x} s<br>Elevation: %{y:.4f} m<extra></extra>`
-    }));
+  const labels = [`Gauge 1 (x=${pos[0]}m)`, `Gauge 2 (x=${pos[1]}m)`, `Gauge 3 (x=${pos[2]}m)`];
+  const traces = [0,1,2].map(i => ({
+    x: time,
+    y: currentReflectionData.map(r => r[i]),
+    mode: 'lines',
+    name: labels[i],
+    line: {color: colors[i], width: 2},
+    hovertemplate: `${labels[i]}<br>Time: %{x:.2f} s<br>Elevation: %{y:.3f} m<extra></extra>`
+  }));
+  
   Plotly.newPlot('reflection-plot', traces, {
     title: {
-      text: '🌊 Three-Gauge Wave Elevation Time Series',
-      font: {size: 28, family: 'Inter, Arial', color: '#0c4a6e', weight: 'bold'},
-      x: 0.5,
-      y: 0.95
+      text: 'Three-Gauge Wave Elevation Time Series',
+      font: {size: 20, family: 'Inter, Arial', color: '#0c4a6e'},
+      x: 0.5
     },
     xaxis: {
-      title: {
-        text: 'Time t [s]',
-        font: {size: 20, color: '#0369a1', weight: 'bold'}
-      },
-      gridcolor: 'rgba(14, 165, 233, 0.2)',
-      zerolinecolor: 'rgba(14, 165, 233, 0.4)',
-      tickfont: {size: 16, color: '#0c4a6e'},
-      showline: true,
-      linewidth: 3,
-      linecolor: 'rgba(14, 165, 233, 0.4)',
-      mirror: true
+      title: 'Time [s]',
+      gridcolor: 'rgba(14, 165, 233, 0.1)',
+      tickfont: {size: 12}
     },
     yaxis: {
-      title: {
-        text: 'Wave Elevation η [m]',
-        font: {size: 20, color: '#0369a1', weight: 'bold'}
-      },
-      gridcolor: 'rgba(14, 165, 233, 0.2)',
-      zerolinecolor: 'rgba(14, 165, 233, 0.4)',
-      tickfont: {size: 16, color: '#0c4a6e'},
-      showline: true,
-      linewidth: 3,
-      linecolor: 'rgba(14, 165, 233, 0.4)',
-      mirror: true
+      title: 'Wave Elevation [m]',
+      gridcolor: 'rgba(14, 165, 233, 0.1)',
+      tickfont: {size: 12}
     },
     legend: {
       orientation: 'h',
       x: 0.5,
       xanchor: 'center',
-      y: -0.25,
-      bgcolor: 'rgba(255, 255, 255, 0.95)',
-      bordercolor: 'rgba(14, 165, 233, 0.4)',
-      borderwidth: 3,
-      font: {size: 18, color: '#0c4a6e', weight: 'bold'}
+      y: -0.15,
+      font: {size: 12}
     },
-    margin: {t: 120, l: 100, r: 60, b: 140},
+    margin: {t: 60, l: 60, r: 40, b: 80},
     autosize: true,
-    plot_bgcolor: 'rgba(240, 249, 255, 0.6)',
-    paper_bgcolor: 'rgba(255, 255, 255, 0.95)',
-    font: {family: 'Inter, Arial', color: '#0c4a6e'},
-    hoverlabel: {
-      bgcolor: 'rgba(14, 165, 233, 0.9)',
-      bordercolor: 'white',
-      font: {color: 'white', size: 16}
-    },
-    annotations: [{
-      text: `Gauge Positions: x = [${pos.join(', ')}] m`,
-      x: 0.5,
-      y: 1.05,
-      xref: 'paper',
-      yref: 'paper',
-      showarrow: false,
-      font: {size: 16, color: '#0369a1', weight: 'bold'},
-      xanchor: 'center'
-    }]
+    plot_bgcolor: 'white',
+    paper_bgcolor: 'white',
+    font: {family: 'Inter, Arial'}
   }, {
-    responsive: true, 
+    responsive: true,
     displayModeBar: true,
-    modeBarButtonsToAdd: ['drawline', 'drawopenpath', 'drawclosedpath', 'drawcircle', 'drawrect', 'eraseshape'],
     displaylogo: false,
     toImageButtonOptions: {
       format: 'png',
       filename: 'gauge_time_series',
-      height: 700,
-      width: 1200,
       scale: 2
     }
   });
@@ -960,17 +894,14 @@ window.plotGaugeData=function(){
       y: currentWaveData,
       type: 'scatter',
       mode: 'lines',
-      name: '🌊 Wave Elevation',
-      line: {color: '#0ea5e9', width: 4, shape: 'spline'},
-      fill: 'tozeroy',
-      fillcolor: 'rgba(14, 165, 233, 0.15)',
-      hovertemplate: '<b>Wave Elevation</b><br>Time: %{x} s<br>Elevation: %{y:.4f} m<extra></extra>'
+      name: 'Wave Elevation',
+      line: {color: '#0ea5e9', width: 2},
+      hovertemplate: 'Time: %{x:.2f} s<br>Elevation: %{y:.3f} m<extra></extra>'
     }], {
       title: {
-        text: '🌊 Wave Elevation Time Series Analysis',
-        font: {size: 28, family: 'Inter, Arial', color: '#0c4a6e', weight: 'bold'},
-        x: 0.5,
-        y: 0.95
+        text: 'Wave Elevation Time Series',
+        font: {size: 20, family: 'Inter, Arial', color: '#0c4a6e'},
+        x: 0.5
       },
       xaxis: {
         title: {
@@ -1045,98 +976,53 @@ window.plotGaugeData=function(){
     byId('wave-plot-container').style.display='block';
   };
 
-  window.plotWaveHeights=function(){
+  window.plotWaveHeights = function() {
     if(!currentWaveResults || !currentWaveResults.waves) return alert('No wave stats');
-    const heights=currentWaveResults.waves.map(w=>w.height);
+    const heights = currentWaveResults.waves.map(w => w.height);
+    
     Plotly.newPlot('wave-heights-plot', [{
-      x: heights.map((_,i)=>i+1),
+      x: heights.map((_, i) => i + 1),
       y: heights,
       type: 'bar',
-      name: '🌊 Wave Heights',
+      name: 'Wave Heights',
       marker: {
-        color: 'rgba(14, 165, 233, 0.8)',
-        line: {width: 3, color: '#0ea5e9'},
-        pattern: {shape: '/', bgcolor: 'rgba(14, 165, 233, 0.1)'}
+        color: 'rgba(14, 165, 233, 0.7)',
+        line: {width: 1, color: '#0ea5e9'}
       },
-      hovertemplate: '<b>Wave %{x}</b><br>Height: %{y:.4f} m<extra></extra>'
+      hovertemplate: 'Wave %{x}<br>Height: %{y:.3f} m<extra></extra>'
     }], {
       title: {
-        text: '🌊 Individual Wave Heights Distribution',
-        font: {size: 28, family: 'Inter, Arial', color: '#0c4a6e', weight: 'bold'},
-        x: 0.5,
-        y: 0.95
+        text: 'Individual Wave Heights Distribution',
+        font: {size: 20, family: 'Inter, Arial', color: '#0c4a6e'},
+        x: 0.5
       },
       xaxis: {
-        title: {
-          text: 'Wave Number',
-          font: {size: 20, color: '#0369a1', weight: 'bold'}
-        },
-        gridcolor: 'rgba(14, 165, 233, 0.2)',
-        zerolinecolor: 'rgba(14, 165, 233, 0.4)',
-        tickfont: {size: 16, color: '#0c4a6e'},
-        showline: true,
-        linewidth: 3,
-        linecolor: 'rgba(14, 165, 233, 0.4)',
-        mirror: true
+        title: 'Wave Number',
+        gridcolor: 'rgba(14, 165, 233, 0.1)',
+        tickfont: {size: 12}
       },
       yaxis: {
-        title: {
-          text: 'Wave Height H [m]',
-          font: {size: 20, color: '#0369a1', weight: 'bold'}
-        },
-        gridcolor: 'rgba(14, 165, 233, 0.2)',
-        zerolinecolor: 'rgba(14, 165, 233, 0.4)',
-        tickfont: {size: 16, color: '#0c4a6e'},
-        showline: true,
-        linewidth: 3,
-        linecolor: 'rgba(14, 165, 233, 0.4)',
-        mirror: true
+        title: 'Wave Height [m]',
+        gridcolor: 'rgba(14, 165, 233, 0.1)',
+        tickfont: {size: 12}
       },
-      legend: {
-        orientation: 'h',
-        x: 0.5,
-        xanchor: 'center',
-        y: -0.2,
-        bgcolor: 'rgba(255, 255, 255, 0.95)',
-        bordercolor: 'rgba(14, 165, 233, 0.4)',
-        borderwidth: 3,
-        font: {size: 18, color: '#0c4a6e', weight: 'bold'}
-      },
-      margin: {t: 120, l: 100, r: 60, b: 120},
+      margin: {t: 60, l: 60, r: 40, b: 60},
       autosize: true,
-      plot_bgcolor: 'rgba(240, 249, 255, 0.6)',
-      paper_bgcolor: 'rgba(255, 255, 255, 0.95)',
-      font: {family: 'Inter, Arial', color: '#0c4a6e'},
-      hoverlabel: {
-        bgcolor: 'rgba(14, 165, 233, 0.9)',
-        bordercolor: 'white',
-        font: {color: 'white', size: 16}
-      },
-      annotations: [{
-        text: `Total Waves: ${heights.length}`,
-        x: 1,
-        y: 1,
-        xref: 'paper',
-        yref: 'paper',
-        showarrow: false,
-        font: {size: 14, color: '#64748b', style: 'italic'},
-        xanchor: 'right',
-        yanchor: 'top'
-      }]
+      plot_bgcolor: 'white',
+      paper_bgcolor: 'white',
+      font: {family: 'Inter, Arial'},
+      showlegend: false
     }, {
-      responsive: true, 
+      responsive: true,
       displayModeBar: true,
-      modeBarButtonsToAdd: ['drawline', 'drawopenpath', 'drawclosedpath', 'drawcircle', 'drawrect', 'eraseshape'],
       displaylogo: false,
       toImageButtonOptions: {
         format: 'png',
         filename: 'wave_heights_distribution',
-        height: 700,
-        width: 1200,
         scale: 2
       }
     });
-    byId('wave-heights-plot-container').style.display='block';
+    byId('wave-heights-plot-container').style.display = 'block';
   };
 
 window.plotGaugeData=function(){
