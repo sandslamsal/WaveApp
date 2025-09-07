@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wave App - Advanced Wave Analysis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- FFT.js for reflection analysis -->
+  <script src="fft.js"></script>
+</head>
+<body>
+  <div class="wave-particles"></div>
+  <header>
+    <h1>Wave App</h1>
+    <p>Advanced wave analysis, reflection coefficient calculation, and interactive plotting</p>
+  </header>
+  <main>
+    <section id="analysis-section">
+      <h2>Wavelength Calculation</h2>
+      <label>Water Depth (m): <input id="water-depth" type="number" step="0.01" value="0.30"></label>
+      <label>Wave Period (s): <input id="wave-period" type="number" step="0.01" value="1.33"></label>
+      <button onclick="calculateWavelength()">Calculate Wavelength</button>
+      <div id="wavelength-result" style="display:none;">
+        <strong>Wavelength (L):</strong> <span id="wavelength-value"></span> m
+        <div id="wavelength-details"></div>
+      </div>
+
+      <hr>
+      <h2>Wave Statistics</h2>
+      <label>Wave Data (one column):<br><textarea id="wave-data" rows="4" cols="40"></textarea></label><br>
+      <label>Sampling Frequency (Hz): <input id="sampling-frequency" type="number" step="0.01" value="100"></label>
+      <button onclick="calculateWaveStats()">Analyze Wave Stats</button>
+      <div id="wave-stats-result" style="display:none;">
+        <strong>Significant Wave Height (Hs):</strong> <span id="hs-value"></span> m<br>
+        <strong>Mean Height (Hmean):</strong> <span id="hmean-value"></span> m<br>
+        <strong>Mean Period (Tmean):</strong> <span id="tmean-value"></span> s<br>
+        <strong>H10:</strong> <span id="h10-value"></span> m<br>
+        <strong>Wave Count:</strong> <span id="wave-count-value"></span>
+      </div>
+      <div id="wave-stats-plot-controls" style="display:none;">
+        <button onclick="plotWaveTimeSeries()">Plot Time Series</button>
+        <div id="wave-plot-container" style="display:none;">
+          <div id="wave-plot" style="width:100%;max-width:900px;height:500px;margin:auto;"></div>
+        </div>
+        <button onclick="plotWaveHeights()">Plot Heights</button>
+        <div id="wave-heights-plot-container" style="display:none;">
+          <div id="wave-heights-plot" style="width:100%;max-width:900px;height:500px;margin:auto;"></div>
+        </div>
+      </div>
+
+      <hr>
+      <h2>Reflection Analysis (Three-Gauge)</h2>
+      <label>Gauge Positions (m, comma separated): <input id="gauge-positions" type="text" value="0,0.3,0.9"></label>
+      <label>Water Depth (m): <input id="reflection-depth" type="number" step="0.01" value="0.30"></label>
+      <label>Time Step (s): <input id="time-step" type="number" step="0.0001" value="0.01"></label>
+      <label>Gauge Data (3 columns, CSV):<br><textarea id="gauge-data" rows="4" cols="40"></textarea></label><br>
+      <button onclick="calculateReflection()">Analyze Reflection</button>
+      <div id="reflection-result" style="display:none;">
+        <strong>Incident Height (Hi):</strong> <span id="hi-value"></span> m<br>
+        <strong>Reflected Height (Hr):</strong> <span id="hr-value"></span> m<br>
+        <strong>Reflection Coefficient (Kr):</strong> <span id="kr-value"></span><br>
+        <strong>Valid Frequencies:</strong> <span id="freq-count-value"></span>
+      </div>
+      <div id="reflection-plot-controls" style="display:none;">
+        <button onclick="plotGaugeData()">Plot Gauge Data</button>
+        <div id="reflection-plot-container" style="display:none;">
+          <div id="reflection-plot" style="width:100%;max-width:900px;height:500px;margin:auto;"></div>
+        </div>
+        <button onclick="plotReflectionSpectra()">Plot Reflection Spectra</button>
+        <div id="reflection-spectra-plot-container" style="display:none;">
+          <div id="reflection-spectra-plot" style="width:100%;max-width:900px;height:500px;margin:auto;"></div>
+        </div>
+      </div>
+
+      <hr>
+      <h2>References</h2>
+      <div class="references-container">
+        <ol class="references-list">
+          <li>Dean, R.G. and R.A. Dalrymple, <em>Water wave mechanics for engineers and scientists</em>. Vol. 2. 1991: world scientific publishing company.</li>
+          <li>Tucker M.J. & Pitt E.G. (2001) <em>Waves in ocean engineering</em>. Elsevier ocean engineering book series vol. 5, Elsevier, Amsterdam, 521 p.</li>
+          <li>Kobayashi, N., D.T. Cox, and A. Wurjanto, Irregular Wave Reflection and Run‐up on Rough Impermeable Slopes. <em>Journal of Waterway, Port, Coastal, and Ocean Engineering</em>, 1990. 116(6): p. 708-726.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2025 Wave App. MIT License.</p>
+  </footer>
+  <script src="wave-app.js"></script>
+</body>
+</html>
