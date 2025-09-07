@@ -23,6 +23,192 @@ header {
   text-align: center;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.wave-title-container {
+  position: relative;
+  z-index: 2;
+}
+
+.sine-wave-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.wave-svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.wave-path {
+  animation: waveDraw 4s ease-in-out infinite;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+}
+
+.wave-path-2 {
+  animation: waveDraw 4s ease-in-out infinite 0.5s;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+}
+
+@keyframes waveDraw {
+  0% {
+    stroke-dashoffset: 1200;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: -1200;
+  }
+}
+
+.animated-wave-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(14, 165, 233, 0.2) 20%,
+    rgba(59, 130, 246, 0.3) 40%,
+    rgba(14, 165, 233, 0.2) 60%,
+    transparent 80%,
+    transparent 100%
+  );
+  animation: waveFlow 6s ease-in-out infinite;
+  z-index: 1;
+}
+
+.math-symbols {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.math-symbols .symbol {
+  position: absolute;
+  font-size: 2.5rem;
+  color: rgba(14, 165, 233, 0.4);
+  animation: symbolFlow 10s linear infinite;
+  font-weight: 400;
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+}
+
+.math-symbols .symbol:nth-child(1) {
+  top: 20%;
+  animation-delay: 0s;
+  font-size: 1.8rem;
+}
+
+.math-symbols .symbol:nth-child(2) {
+  top: 40%;
+  animation-delay: -2s;
+  font-size: 2.2rem;
+}
+
+.math-symbols .symbol:nth-child(3) {
+  top: 60%;
+  animation-delay: -4s;
+  font-size: 1.6rem;
+}
+
+.math-symbols .symbol:nth-child(4) {
+  top: 30%;
+  animation-delay: -6s;
+  font-size: 2rem;
+}
+
+.math-symbols .symbol:nth-child(5) {
+  top: 70%;
+  animation-delay: -8s;
+  font-size: 1.9rem;
+}
+
+.math-symbols .symbol:nth-child(6) {
+  top: 50%;
+  animation-delay: -10s;
+  font-size: 1.7rem;
+}
+
+.wave-title {
+  position: relative;
+  z-index: 3;
+  background: linear-gradient(
+    45deg,
+    #0c4a6e 0%,
+    #0369a1 30%,
+    #0ea5e9 60%,
+    #0c4a6e 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: titleGradient 6s ease-in-out infinite;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes waveFlow {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes symbolFlow {
+  0% {
+    transform: translateX(-150px);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(calc(100vw + 150px));
+    opacity: 0;
+  }
+}
+}
+
+@keyframes titleGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 header h1 {
