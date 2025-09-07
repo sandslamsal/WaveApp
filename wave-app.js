@@ -629,14 +629,19 @@ window.plotReflectionSpectra=function(){
       orientation: 'h',
       x: 0.5,
       xanchor: 'center',
-      y: -0.15,
+      y: -0.25,
       font: {size: 12}
     },
-    margin: {t: 60, l: 60, r: 40, b: 80},
+    margin: {t: 60, l: 60, r: 40, b: 100},
     autosize: true,
     plot_bgcolor: 'white',
     paper_bgcolor: 'white',
-    font: {family: 'Inter, Arial'}
+    font: {family: 'Inter, Arial'},
+    hoverlabel: {
+      bgcolor: 'white',
+      bordercolor: '#0c4a6e',
+      font: {color: '#0c4a6e', size: 14, family: 'Inter, Arial'}
+    }
   }, {
     responsive: true, 
     displayModeBar: true,
@@ -748,10 +753,9 @@ window.plotReflectionSpectra=function(){
     }
   ], {
     title: {
-      text: '🌊 Three-Gauge Reflection Analysis: Wave Spectra Decomposition',
-      font: {size: 28, family: 'Inter, Arial', color: '#0c4a6e', weight: 'bold'},
-      x: 0.5,
-      y: 0.95
+      text: 'Three-Gauge Reflection Analysis: Wave Spectra Decomposition',
+      font: {size: 20, family: 'Inter, Arial', color: '#0c4a6e'},
+      x: 0.5
     },
     xaxis: {
       title: {
@@ -795,9 +799,9 @@ window.plotReflectionSpectra=function(){
     paper_bgcolor: 'rgba(255, 255, 255, 0.95)',
     font: {family: 'Inter, Arial', color: '#0c4a6e'},
     hoverlabel: {
-      bgcolor: 'rgba(14, 165, 233, 0.9)',
-      bordercolor: 'white',
-      font: {color: 'white', size: 16}
+      bgcolor: 'white',
+      bordercolor: '#0c4a6e',
+      font: {color: '#0c4a6e', size: 14, family: 'Inter, Arial'}
     },
     annotations: [{
       text: 'Goda & Suzuki (1976) Method',
@@ -863,12 +867,20 @@ window.plotGaugeData=function(){
       orientation: 'h',
       x: 0.5,
       xanchor: 'center',
-      y: -0.15,
+      y: -0.25,
       font: {size: 12}
     },
-    margin: {t: 60, l: 60, r: 40, b: 80},
+    margin: {t: 60, l: 60, r: 40, b: 100},
     autosize: true,
     plot_bgcolor: 'white',
+    paper_bgcolor: 'white',
+    font: {family: 'Inter, Arial'},
+    hoverlabel: {
+      bgcolor: 'white',
+      bordercolor: '#0c4a6e',
+      font: {color: '#0c4a6e', size: 14, family: 'Inter, Arial'}
+    }
+  }, {
     paper_bgcolor: 'white',
     font: {family: 'Inter, Arial'}
   }, {
@@ -945,9 +957,9 @@ window.plotGaugeData=function(){
       paper_bgcolor: 'rgba(255, 255, 255, 0.95)',
       font: {family: 'Inter, Arial', color: '#0c4a6e'},
       hoverlabel: {
-        bgcolor: 'rgba(14, 165, 233, 0.9)',
-        bordercolor: 'white',
-        font: {color: 'white', size: 16}
+        bgcolor: 'white',
+        bordercolor: '#0c4a6e',
+        font: {color: '#0c4a6e', size: 14, family: 'Inter, Arial'}
       },
       annotations: [{
         text: `Sampling Frequency: ${fs} Hz`,
